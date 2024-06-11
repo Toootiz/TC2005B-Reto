@@ -54,7 +54,7 @@ MonoBehaviour:
   deckNameText: {fileID: 2354430775036239525}
   deckDescriptionText: {fileID: 9030113412173450646}
   cardContainer: {fileID: 4063534555358725057}
-  cardPrefab: {fileID: 2907078447231389919, guid: 7f42d62ee65e2c3458c1267b6b4feecf, type: 3}
+  cardPrefab: {fileID: 5450965773582922932, guid: b44f86b6f5808a4448f931c023b3b7f7, type: 3}
 --- !u!1 &3199864623048177018
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,8 +122,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fe1cc871b66f54b43b69f1740a0d3bf9, type: 2}
+  m_sharedMaterial: {fileID: 7024173240877565160, guid: fe1cc871b66f54b43b69f1740a0d3bf9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.15503857, g: 0.4245283, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -358,8 +358,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fe1cc871b66f54b43b69f1740a0d3bf9, type: 2}
+  m_sharedMaterial: {fileID: 7024173240877565160, guid: fe1cc871b66f54b43b69f1740a0d3bf9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

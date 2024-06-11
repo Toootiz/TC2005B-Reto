@@ -40,6 +40,14 @@ public class CardInfo : MonoBehaviour
 
     void Start()
     {
+        // if (!string.IsNullOrEmpty(Data))
+        // {
+        //     MakeList();
+        // }
+        // else
+        // {
+        //     Debug.LogError("Data is null or empty.");
+        // }
     }
 
     public void MakeList()

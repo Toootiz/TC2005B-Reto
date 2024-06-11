@@ -24,7 +24,7 @@ public class CardInfo2 : MonoBehaviour
         public int Puntos_de_Vida;
         public int Puntos_de_ataque;
         public int Coste_en_elixir;
-        public int HabilidadDescripcion;
+        public string descripcion;
         public int id_habilidad;
         public int venenodmg;
         public int quemadodmg;

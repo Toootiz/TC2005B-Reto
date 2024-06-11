@@ -84,6 +84,8 @@ public class DeckUI : MonoBehaviour, IPointerClickHandler
         if (deckSelectionManager != null)
         {
             deckSelectionManager.SelectDeck(deckName, deckId);
+            PlayerPrefs.SetInt("SelectedDeckId", deckId);
+            PlayerPrefs.Save();
         }
     }
 }

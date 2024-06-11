@@ -14,21 +14,21 @@ using TMPro;
 public class CardScript2 : MonoBehaviour, IPointerClickHandler
 {
     // Variables para guardar los datos que la carta recibe
-    public int CardId, CardLife, CardAttack, CardCost, CardHabilidad, Cardvenenodmg, Cardquemadodmg, Cardsangradodmg, Cardmordidadmg, Cardcolatazodmg, Cardboostvida, Cardboostataquedmg, Cardboostcosto, Cardduracion;
-    public string CardName;
+    public int CardId, CardLife, CardAttack, CardCost, Cardvenenodmg, Cardquemadodmg, Cardsangradodmg, Cardmordidadmg, Cardcolatazodmg, Cardboostvida, Cardboostataquedmg, Cardboostcosto, Cardduracion;
+    public string CardName, descripcion;
     public Image CardArt;
     private RectTransform rectTransform;
     private Transform originalParent;
 
     // Referencia al script de gestión del juego
-    DeckManagment gameManagement;
+    DeckManagement gameManagement;
 
     // Esta función se llama al iniciar el script.
     // Se encarga de obtener las referencias necesarias.
     void Start()
     {
-        // Obtener la referencia al componente con tag de DeckManagment
-        gameManagement = GameObject.FindGameObjectWithTag("DeckManagment").GetComponent<DeckManagment>();
+        // Obtener la referencia al componente con tag de DeckManagement
+        gameManagement = GameObject.FindGameObjectWithTag("DeckManagment").GetComponent<DeckManagement>();
         rectTransform = GetComponent<RectTransform>();
         originalParent = transform.parent;
     }

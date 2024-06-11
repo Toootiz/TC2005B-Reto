@@ -14,6 +14,8 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField passwordInputFieldLog;
     public Button registerButton;
     public Button loginButton;
+    public TMP_Text estado; // Referencia al TextMeshPro para mensajes de estado
+    public CanvasGroup estadoCanvasGroup; // Referencia al CanvasGroup para manejar la visibilidad del mensaje de estado
 
     void Start()
     {
@@ -35,6 +37,8 @@ public class LoginManager : MonoBehaviour
         {
             Debug.LogError("loginButton no está asignado en el inspector.");
         }
+
+        estadoCanvasGroup.alpha = 0; // Asegurarse de que el mensaje de estado esté oculto al inicio
     }
 
     // Método para registrar un nuevo usuario
@@ -42,7 +46,7 @@ public class LoginManager : MonoBehaviour
     {
         if (usernameInputFieldReg == null || passwordInputFieldReg == null)
         {
-            Debug.LogError("Uno de los campos de registro es null.");
+            ShowMessage("Uno de los campos de registro es null.", true);
             return;
         }
 
@@ -74,11 +78,11 @@ public class LoginManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                ShowMessage(www.error, true);
             }
             else
             {
-                Debug.Log("Usuario registrado exitosamente");
+                ShowMessage("Usuario registrado exitosamente", false);
             }
         }
     }
@@ -96,7 +100,7 @@ public class LoginManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                ShowMessage(www.error, true);
             }
             else
             {
@@ -104,27 +108,44 @@ public class LoginManager : MonoBehaviour
                 {
                     // Extraer user ID de la respuesta
                     string userIdStr = www.downloadHandler.text.Split(':')[1];
-                    int userId;
+                                        int userId;
                     if (int.TryParse(userIdStr, out userId))
                     {
                         PlayerPrefs.SetInt("userId", userId);
                         Debug.Log("UserId: " + userId);
                         PlayerPrefs.SetString("nombre", nombre);
 
-                        Debug.Log("Usuario autenticado");
+                        ShowMessage("Usuario autenticado", false);
 
                         SceneManager.LoadScene("MenuInicial");
                     }
                     else
                     {
+                        ShowMessage("Error al analizar el userId", true);
                         Debug.LogError("Error parsing userId");
                     }
                 }
                 else
                 {
+                    ShowMessage("Usuario no autenticado", true);
                     Debug.Log("Usuario no autenticado");
                 }
             }
         }
+    }
+
+    // Método para mostrar mensajes de estado y ocultarlos después de 1 segundo
+    void ShowMessage(string message, bool isError)
+    {
+        estado.text = message;
+        estado.color = isError ? Color.red : Color.white; // Color rojo para errores, negro para mensajes informativos
+        StartCoroutine(ShowMessageCoroutine());
+    }
+
+    IEnumerator ShowMessageCoroutine()
+    {
+        estadoCanvasGroup.alpha = 1;
+        yield return new WaitForSeconds(1);
+        estadoCanvasGroup.alpha = 0;
     }
 }

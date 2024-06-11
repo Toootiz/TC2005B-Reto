@@ -27,6 +27,7 @@ public class DeckLoader : MonoBehaviour
     IEnumerator LoadDecks()
     {
         int userId = PlayerPrefs.GetInt("userId", 0);
+        Debug.Log(userId);
         string url = $"http://localhost:3000/api/decks/{userId}";
         Debug.Log(url);
         UnityWebRequest request = UnityWebRequest.Get(url);
@@ -88,7 +89,7 @@ public class DeckLoader : MonoBehaviour
     public class Card
     {
         public int id_carta;
-        public string Nombre;
+        public string Nombre, desripcion;
         public int Puntos_de_Vida;
         public int Puntos_de_ataque;
         public int Coste_en_elixir;

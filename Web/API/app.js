@@ -44,6 +44,55 @@ app.get("/api/cards", async (req, res) => {
 });
 
 
+// Fetch decks for a specific player
+app.get("/api/decks/:id_jugador", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute(`
+            SELECT d.id_deck, d.nombre_deck, d.descripcion_deck, c.id_carta, c.nombre AS Nombre, c.puntos_de_vida AS Puntos_de_Vida, 
+                   c.puntos_de_ataque AS Puntos_de_ataque, c.coste_en_elixir AS Coste_en_elixir, h.descripcion AS HabilidadDescripcion
+            FROM deck d
+            JOIN carta c ON (c.id_carta = d.id_carta1 OR c.id_carta = d.id_carta2 OR c.id_carta = d.id_carta3 OR 
+                             c.id_carta = d.id_carta4 OR c.id_carta = d.id_carta5 OR c.id_carta = d.id_carta6 OR 
+                             c.id_carta = d.id_carta7 OR c.id_carta = d.id_carta8 OR c.id_carta = d.id_carta9 OR 
+                             c.id_carta = d.id_carta10)
+            JOIN habilidad h ON c.habilidad = h.id_habilidad
+            WHERE d.id_jugador = ?
+        `, [req.params.id_jugador]);
+        
+        const decks = {};
+        
+        results.forEach(row => {
+            if (!decks[row.nombre_deck]) {
+                decks[row.nombre_deck] = {
+                    id_deck: row.id_deck,
+                    nombre_deck: row.nombre_deck,
+                    descripcion_deck: row.descripcion_deck,
+                    cards: []
+                };
+            }
+            decks[row.nombre_deck].cards.push({
+                id_carta: row.id_carta,
+                Nombre: row.Nombre,
+                Puntos_de_Vida: row.Puntos_de_Vida,
+                Puntos_de_ataque: row.Puntos_de_ataque,
+                Coste_en_elixir: row.Coste_en_elixir,
+                HabilidadDescripcion: row.HabilidadDescripcion
+            });
+        });
+        
+        res.status(200).json({ decks: Object.values(decks) });
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+
 app.post("/api/guardardecks", async (req, res) => {
     let connection = null;
     try {

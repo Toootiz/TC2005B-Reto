@@ -12,7 +12,9 @@ public class MenuInicial : MonoBehaviour
     void Start()
     {
         int userId = PlayerPrefs.GetInt("userId", 0);
+        int deckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
         Debug.Log(userId);
+        Debug.Log(deckId);
     }
 
     public void Jugar()

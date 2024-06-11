@@ -11,7 +11,7 @@ public class CardScript3 : MonoBehaviour
 {
     // Variables para guardar los datos que la carta recibe
     public int CardId, CardLife, CardAttack, CardCost, CardHabilidad;
-    public string CardName;
+    public string CardName, descripcion;
     public Image CardArt;
 
     // Referencias a los componentes de la interfaz
@@ -35,7 +35,7 @@ public class CardScript3 : MonoBehaviour
         if (cardLifeText != null) cardLifeText.text = CardLife.ToString();
         if (cardAttackText != null) cardAttackText.text = CardAttack.ToString();
         if (cardCostText != null) cardCostText.text = CardCost.ToString();
-        if (cardHabilidadText != null) cardHabilidadText.text = CardHabilidad.ToString();
+        if (cardHabilidadText != null) cardHabilidadText.text = descripcion;  // Actualizar con la descripción
         // Asegúrate de que la imagen está configurada correctamente
         if (CardArt != null) CardArt.sprite = Resources.Load<Sprite>($"DinoImages/{CardId}");
     }

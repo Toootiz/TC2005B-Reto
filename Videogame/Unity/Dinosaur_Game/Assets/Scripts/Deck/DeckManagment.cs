@@ -11,7 +11,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
-public class DeckManagment : MonoBehaviour
+public class DeckManagement : MonoBehaviour
 {
     public GameObject CardPrefab; // Referencia al prefab de la carta
     public Transform selectedCards; // Panel para cartas seleccionadas
@@ -70,16 +70,16 @@ public class DeckManagment : MonoBehaviour
         TextMeshProUGUI lifeText = newcard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI attackText = newcard.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI costText = newcard.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI HabilidadText = newcard.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI descripcion = newcard.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         Image cardImage = newcard.transform.GetChild(5).GetComponent<Image>();
 
         nameText.text = cards.listaCartas.cards[id].Nombre;
         lifeText.text = cards.listaCartas.cards[id].Puntos_de_Vida.ToString();
         attackText.text = cards.listaCartas.cards[id].Puntos_de_ataque.ToString();
         costText.text = cards.listaCartas.cards[id].Coste_en_elixir.ToString();
-        HabilidadText.text = cards.listaCartas.cards[id].HabilidadDescripcion.ToString();
+        descripcion.text = cards.listaCartas.cards[id].descripcion.ToString();
 
-        Sprite cardSprite = Resources.Load<Sprite>($"DinoImages/{id}");
+        Sprite cardSprite = Resources.Load<Sprite>($"DinoImages/{id+1}");
 
         if (cardSprite != null)
         {
@@ -96,7 +96,7 @@ public class DeckManagment : MonoBehaviour
         cardScript.CardAttack = cards.listaCartas.cards[id].Puntos_de_ataque;
         cardScript.CardLife = cards.listaCartas.cards[id].Puntos_de_Vida;
         cardScript.CardCost = cards.listaCartas.cards[id].Coste_en_elixir;
-        cardScript.CardHabilidad = cards.listaCartas.cards[id].HabilidadDescripcion;
+        cardScript.descripcion = cards.listaCartas.cards[id].descripcion;
         cardScript.Cardvenenodmg = cards.listaCartas.cards[id].venenodmg;
         cardScript.Cardquemadodmg = cards.listaCartas.cards[id].quemadodmg;
         cardScript.Cardsangradodmg = cards.listaCartas.cards[id].sangradodmg;
@@ -223,7 +223,7 @@ public class DeckManagment : MonoBehaviour
         }
         else
         {
-            ShowMessage("Deck guardado exitosamente: " + request.downloadHandler.text);
+            ShowMessage("Deck guardado exitosamente");
             Debug.Log("Deck saved successfully: " + request.downloadHandler.text);
         }
     }
@@ -265,6 +265,7 @@ public class DeckManagment : MonoBehaviour
     void ShowMessage(string message, bool isError = false)
     {
         estado.text = message;
+        estado.color = isError ? Color.red : Color.white; // Color rojo para errores, negro para mensajes informativos
         StartCoroutine(ShowMessageCoroutine());
     }
 

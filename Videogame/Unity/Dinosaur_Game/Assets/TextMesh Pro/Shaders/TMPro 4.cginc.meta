@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: c857109e57b3740189ebbaf755ae0939
+=======
+guid: 4dec24b80a89b044a9cc9e5972fd4c64
+>>>>>>> d509e5c029ec42a3388f3f23ca1ca1d901c8ed43
 ShaderIncludeImporter:
   externalObjects: {}
   userData: 

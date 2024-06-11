@@ -6,24 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: c0e533919b7e14134b5c714cd2521b38
+  - enabled: 1
     path: Assets/Scenes/MenuInicial.unity
     guid: 0534573e9ded848c4813092b17cb4895
   - enabled: 1
     path: Assets/Scenes/Board.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/idk.unity
-    guid: 52111a2d05af243ffa30ae88f9f9eb89
-  - enabled: 1
     path: Assets/Scenes/Deck.unity
     guid: 773ce38c1ce2ed44fbd0e863ab2851eb
   - enabled: 1
+    path: Assets/Scenes/DeckSeleccionado.unity
+    guid: 706afc39e896a7a4cb40611c58f7cd8d
+  - enabled: 0
+    path: Assets/Scenes/idk.unity
+    guid: 52111a2d05af243ffa30ae88f9f9eb89
+  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: bd9887ab89b214071a5786c1a00f32c9
-  - enabled: 1
-    path: Assets/Scenes/SelectedDeck.unity
-    guid: f6809ea4de1f247b19b87bf8329ccd65
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/start.unity
-    guid: ca19e4d5e7ad343f6bdbb6bb5da09ee6
+    guid: a02706a3665594f5ca01c56581b6c5cd
   m_configObjects: {}

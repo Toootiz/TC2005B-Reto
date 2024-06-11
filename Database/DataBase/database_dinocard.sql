@@ -2,15 +2,14 @@ DROP SCHEMA IF EXISTS dinocard_db;
 CREATE SCHEMA dinocard_db;
 USE dinocard_db;
 
-
--- Table forf `habilidad`
-
+-- Crear tabla para `habilidad`
 CREATE TABLE habilidad (
     id_habilidad INT NOT NULL AUTO_INCREMENT,
     descripcion TEXT,
     PRIMARY KEY (id_habilidad)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Crear tabla para `habilidadData`
 CREATE TABLE habilidadData (
     id_habilidad INT,
     venenodmg INT,
@@ -22,46 +21,35 @@ CREATE TABLE habilidadData (
     boostataquedmg INT,
     boostcosto INT,
     duracion INT,
-        
     FOREIGN KEY (id_habilidad) REFERENCES habilidad(id_habilidad)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Table for `carta`
-
+-- Crear tabla para `carta`
 CREATE TABLE carta (
-  id_carta INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(255),
-  puntos_de_vida INT,
-  puntos_de_ataque INT,
-  coste_en_elixir INT,
-  habilidad INT,
-  
-  PRIMARY KEY (id_carta),
-  FOREIGN KEY (habilidad) REFERENCES habilidad(id_habilidad)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    id_carta INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(255),
+    puntos_de_vida INT,
+    puntos_de_ataque INT,
+    coste_en_elixir INT,
+    habilidad INT,
+    PRIMARY KEY (id_carta),
+    FOREIGN KEY (habilidad) REFERENCES habilidad(id_habilidad)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Table for `deck`
-
-
-
-
--- Table for `deck de jugador`
--- Table for `jugador`
-
-CREATE TABLE jugador(
-
-	id_jugador INT NOT NULL AUTO_INCREMENT,
+-- Crear tabla para `jugador`
+CREATE TABLE jugador (
+    id_jugador INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255),
     contrasena VARCHAR(255),
-	partidas_ganadas INT,
+    partidas_ganadas INT,
     partidas_perdidas INT,
-	fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
+    fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id_jugador)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-Create TABLE deck (
+-- Crear tabla para `deck`
+CREATE TABLE deck (
     id_deck INT NOT NULL AUTO_INCREMENT,
     id_jugador INT,
     nombre_deck VARCHAR(255),
@@ -77,24 +65,21 @@ Create TABLE deck (
     id_carta9 INT,
     id_carta10 INT,
     fecha_de_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
+    fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id_deck),
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
--- Table for `partida`
-
-CREATE TABLE partida(
+-- Crear tabla para `partida`
+CREATE TABLE partida (
     id_partida INT,
     id_jugador INT,
     id_ganador INT,
     id_perdedor INT,
     cantidad_turnos INT,
-    
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- VISTA CARTAS Y HABILIDADES 
 CREATE VIEW vista_detalles_cartas AS
@@ -108,6 +93,7 @@ SELECT
 FROM
     carta c
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad;
+
 
 -- VISTA INFORMACION JUGADORES Y ESTADISTICAS
 CREATE VIEW vista_estadisticas_jugadores AS
@@ -199,6 +185,9 @@ FROM
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad
     LEFT JOIN habilidadData hd ON h.id_habilidad = hd.id_habilidad;
     
+    SELECT * FROM vista_cartas_habilidades_por_deck WHERE id_deck = 1;
+    
+    SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;
 select
     id_carta,
     Nombre,

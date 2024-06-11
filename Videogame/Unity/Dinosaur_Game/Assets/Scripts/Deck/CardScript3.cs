@@ -1,3 +1,8 @@
+/*
+Este código se encarga de manejar la lógica de las cartas y su actualización en la interfaz de usuario en el juego TCG de dinosaurios.
+Fecha: 09/06/24
+*/
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -16,6 +21,8 @@ public class CardScript3 : MonoBehaviour
     public TextMeshProUGUI cardCostText;
     public TextMeshProUGUI cardHabilidadText;
 
+    // Esta función se llama al iniciar el script.
+    // Se encarga de actualizar la interfaz de la carta.
     void Start()
     {
         UpdateCardUI();

@@ -1,3 +1,8 @@
+/*
+Este código se encarga de manejar la información de las cartas y su instancia en el juego TCG de dinosaurios.
+Fecha: 09/06/24
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +29,7 @@ public class CardInfo2 : MonoBehaviour
         public int venenodmg;
         public int quemadodmg;
         public int sangradodmg;
-        public int mordidadmg; 
+        public int mordidadmg;
         public int colatazodmg;
         public int boostvida;
         public int boostataquedmg;
@@ -35,7 +40,7 @@ public class CardInfo2 : MonoBehaviour
 
     // Clase interna para representar una lista de cartas
     [System.Serializable]
-    public class CardList 
+    public class CardList
     {
         // Lista de objetos de las cartas
         public Card[] cards;
@@ -44,6 +49,7 @@ public class CardInfo2 : MonoBehaviour
     // Instancia de la lista de cartas
     public CardList listaCartas = new CardList();
 
+    // Esta función se llama al iniciar el script.
     void Start()
     {
         // Nada de momento

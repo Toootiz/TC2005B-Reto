@@ -1,3 +1,8 @@
+/*
+Este código se encarga de manejar la lógica de las cartas en el juego TCG de dinosaurios.
+Fecha: 09/06/24
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -18,14 +23,18 @@ public class CardScript2 : MonoBehaviour, IPointerClickHandler
     // Referencia al script de gestión del juego
     DeckManagment gameManagement;
 
+    // Esta función se llama al iniciar el script.
+    // Se encarga de obtener las referencias necesarias.
     void Start()
     {
-        // Obtener la referencia al componente con tag de GameController
+        // Obtener la referencia al componente con tag de DeckManagment
         gameManagement = GameObject.FindGameObjectWithTag("DeckManagment").GetComponent<DeckManagment>();
         rectTransform = GetComponent<RectTransform>();
         originalParent = transform.parent;
     }
 
+    // Esta función se llama cuando se hace clic en la carta.
+    // Se encarga de mover la carta entre el panel de todas las cartas y el panel de cartas seleccionadas.
     public void OnPointerClick(PointerEventData eventData)
     {
         if (transform.parent.CompareTag("CardsDesck"))
@@ -45,6 +54,7 @@ public class CardScript2 : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    // Esta función mueve la carta al panel de cartas seleccionadas.
     void MoveToSelected()
     {
         originalParent = transform.parent;
@@ -52,6 +62,7 @@ public class CardScript2 : MonoBehaviour, IPointerClickHandler
         gameManagement.AddCardToSelected(this);
     }
 
+    // Esta función mueve la carta al panel de todas las cartas.
     void MoveToAll()
     {
         originalParent = transform.parent;

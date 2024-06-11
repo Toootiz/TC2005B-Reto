@@ -1,3 +1,8 @@
+/*
+Este código se encarga de cargar y mostrar los decks del usuario en el juego TCG de dinosaurios.
+Fecha: 09/06/24
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,23 +16,19 @@ public class DeckLoader : MonoBehaviour
     public Transform deckContainer; // Contenedor donde se instanciarán los decks
     private int userId; // ID del usuario
 
+    // Esta función se llama al iniciar el script.
+    // Se encarga de cargar el ID del usuario desde PlayerPrefs y de iniciar la corrutina para cargar los decks.
     void Start()
     {
-        // Cargar el ID del usuario desde PlayerPrefs
-        if (PlayerPrefs.HasKey("userId"))
-        {
-            userId = int.Parse(PlayerPrefs.GetString("userId"));
-            StartCoroutine(LoadDecks());
-        }
-        else
-        {
-            Debug.LogError("User ID not found in PlayerPrefs.");
-        }
+        StartCoroutine(LoadDecks());
     }
 
+    // Corrutina que envía una solicitud al servidor para obtener los decks del usuario.
     IEnumerator LoadDecks()
     {
+        int userId = PlayerPrefs.GetInt("userId", 0);
         string url = $"http://localhost:3000/api/decks/{userId}";
+        Debug.Log(url);
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
 
@@ -45,6 +46,7 @@ public class DeckLoader : MonoBehaviour
         }
     }
 
+    // Método para mostrar los decks en la interfaz de usuario.
     void DisplayDecks(List<Deck> decks)
     {
         foreach (Deck deck in decks)
@@ -64,21 +66,24 @@ public class DeckLoader : MonoBehaviour
         }
     }
 
+    // Clase interna para representar un deck.
     [System.Serializable]
     public class Deck
     {
-        public int id_deck; // Asegúrate de incluir el ID del deck
+        public int id_deck; // ID del deck
         public string nombre_deck;
         public string descripcion_deck;
         public List<Card> cards;
     }
 
+    // Clase interna para representar una lista de decks.
     [System.Serializable]
     public class DeckList
     {
         public List<Deck> decks;
     }
 
+    // Clase interna para representar una carta.
     [System.Serializable]
     public class Card
     {

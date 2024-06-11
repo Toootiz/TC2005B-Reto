@@ -1,3 +1,8 @@
+/*
+Este código se encarga de manejar la gestión de decks en el juego TCG de dinosaurios.
+Fecha: 09/06/24
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +18,14 @@ public class DeckManagment : MonoBehaviour
     public Transform allCards; // Panel para todas las cartas
     public TMP_InputField deckNameInput; // Campo de texto para el nombre del deck
     public TMP_InputField deckDescriptionInput; // Campo de texto para la descripción del deck
-    CardInfo2 cards;
-    public string apiResult;  // Resultado de la llamada a la API
+    CardInfo2 cards; // Información de las cartas
+    private int userId;
+    public string apiResult; // Resultado de la llamada a la API
+    public TMP_Text estado; // Referencia al TextMeshPro para mensajes de estado
+    public CanvasGroup estadoCanvasGroup; // Referencia al CanvasGroup para manejar la visibilidad del mensaje de estado
 
+    // Esta función se llama al iniciar el script.
+    // Se encarga de cargar los datos de las cartas y generar las cartas en la interfaz.
     void Start()
     {
         cards = GameObject.FindGameObjectWithTag("CardData").GetComponent<CardInfo2>();
@@ -23,8 +33,10 @@ public class DeckManagment : MonoBehaviour
         allCards = GameObject.FindGameObjectWithTag("CardsDesck").transform;
         LoadCardData();
         GenerateAllCards(); // Generar todas las cartas
+        estadoCanvasGroup.alpha = 0; // Asegurarse de que el mensaje de estado esté oculto al inicio
     }
 
+    // Esta función carga los datos de las cartas desde PlayerPrefs.
     void LoadCardData()
     {
         if (PlayerPrefs.HasKey("CardData"))
@@ -35,10 +47,11 @@ public class DeckManagment : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No card data found in PlayerPrefs");
+            ShowMessage("No se encontraron datos de cartas en PlayerPrefs", true);
         }
     }
 
+    // Esta función genera todas las cartas en el panel de todas las cartas.
     public void GenerateAllCards()
     {
         for (int i = 0; i < cards.listaCartas.cards.Length; i++)
@@ -47,6 +60,7 @@ public class DeckManagment : MonoBehaviour
         }
     }
 
+    // Esta función instancia una carta en la interfaz.
     public void InstantiateCard(int id, float posX, float posY)
     {
         GameObject newcard = Instantiate(CardPrefab, allCards);
@@ -73,7 +87,7 @@ public class DeckManagment : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Image {id} not found in Resources/IMG/");
+            ShowMessage($"Imagen {id} no encontrada en Resources/IMG/", true);
         }
 
         CardScript2 cardScript = newcard.GetComponent<CardScript2>();
@@ -95,14 +109,16 @@ public class DeckManagment : MonoBehaviour
         cardScript.CardArt = cardImage;
     }
 
+    // Opcional: realiza alguna acción adicional cuando se agrega una carta a la selección.
     public void AddCardToSelected(CardScript2 card)
     {
-        // Opcional: realiza alguna acción adicional cuando se agrega una carta a la selección
+        // Implementar según sea necesario.
     }
 
+    // Opcional: realiza alguna acción adicional cuando se elimina una carta de la selección.
     public void RemoveCardFromSelected(CardScript2 card)
     {
-        // Opcional: realiza alguna acción adicional cuando se elimina una carta de la selección
+        // Implementar según sea necesario.
     }
 
     [System.Serializable]
@@ -123,6 +139,7 @@ public class DeckManagment : MonoBehaviour
         public int id_carta10;
     }
 
+    // Esta función guarda las cartas seleccionadas en PlayerPrefs y envía los datos al servidor.
     public void SaveSelectedCards()
     {
         string deckName = deckNameInput.text;
@@ -130,19 +147,19 @@ public class DeckManagment : MonoBehaviour
 
         if (string.IsNullOrEmpty(deckName))
         {
-            Debug.LogError("Falta nombre del deck");
+            ShowMessage("Falta nombre del deck", true);
             return;
         }
 
         if (string.IsNullOrEmpty(deckDescription))
         {
-            Debug.LogError("Falta descripción del deck");
+            ShowMessage("Falta descripción del deck", true);
             return;
         }
 
         if (selectedCards.childCount != 10)
         {
-            Debug.LogError("Debe seleccionar exactamente 10 cartas");
+            ShowMessage("Debe seleccionar exactamente 10 cartas", true);
             return;
         }
 
@@ -157,9 +174,13 @@ public class DeckManagment : MonoBehaviour
             }
         }
 
+        int userId = PlayerPrefs.GetInt("userId", 0);
+
+        Debug.Log(userId);
+
         DeckData deckData = new DeckData
         {
-            id_jugador = 1, // Asigna el id del jugador según corresponda
+            id_jugador = userId, // Cargar el id del jugador desde PlayerPrefs
             nombre_deck = deckName,
             descripcion_deck = deckDescription,
             id_carta1 = selectedCardIds[0],
@@ -183,6 +204,7 @@ public class DeckManagment : MonoBehaviour
         StartCoroutine(PostDeckData("http://localhost:3000/api/guardardeck", json));
     }
 
+    // Corrutina que envía los datos del deck al servidor.
     IEnumerator PostDeckData(string url, string json)
     {
         UnityWebRequest request = new UnityWebRequest(url, "POST");
@@ -195,15 +217,18 @@ public class DeckManagment : MonoBehaviour
 
         if (request.result != UnityWebRequest.Result.Success)
         {
+            ShowMessage("Error al guardar el deck: " + request.error, true);
             Debug.Log("Error: " + request.error);
             Debug.Log("Response: " + request.downloadHandler.text); // Imprimir la respuesta del servidor
         }
         else
         {
+            ShowMessage("Deck guardado exitosamente: " + request.downloadHandler.text);
             Debug.Log("Deck saved successfully: " + request.downloadHandler.text);
         }
     }
 
+    // Esta función limpia las cartas seleccionadas.
     public void ClearSelectedCards()
     {
         foreach (Transform child in selectedCards)
@@ -212,19 +237,42 @@ public class DeckManagment : MonoBehaviour
         }
     }
 
+    // Esta función guarda las cartas seleccionadas y cambia a la escena "SelectedDeck".
     public void SaveAndChangeScene()
     {
         SaveSelectedCards();
         SceneManager.LoadScene("SelectedDeck");
     }
 
+    // Esta función cambia a la escena "SelectedDeck".
+    public void DeckScene()
+    {
+        SceneManager.LoadScene("DeckSeleccionado");
+    }
+    
     public void PlayScene()
     {
         SceneManager.LoadScene("Board");
     }
 
+    // Esta función vuelve al menú inicial.
     public void Volver()
     {
         SceneManager.LoadScene("MenuInicial");
+    }
+
+    // Método para mostrar mensajes de estado y ocultarlos después de 1 segundo.
+    void ShowMessage(string message, bool isError = false)
+    {
+        estado.text = message;
+        StartCoroutine(ShowMessageCoroutine());
+    }
+
+    // Corrutina que maneja la animación de mostrar y ocultar el mensaje de estado.
+    IEnumerator ShowMessageCoroutine()
+    {
+        estadoCanvasGroup.alpha = 1;
+        yield return new WaitForSeconds(1);
+        estadoCanvasGroup.alpha = 0;
     }
 }

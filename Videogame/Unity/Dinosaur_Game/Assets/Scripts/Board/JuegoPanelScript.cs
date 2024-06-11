@@ -4,28 +4,24 @@ using UnityEngine.EventSystems;
 
 public class JuegoPanelScript : MonoBehaviour, IDropHandler //manejo de eventos drop
 {
-    // Lista para almacenar las cartas en el panel.
     public List<GameObject> cards = new List<GameObject>();
-    // Número máximo de cartas permitidas en el panel.
     public int maxCards = 5;
 
-    // Lo que pasa al soltar la carta en el panel
     public void OnDrop(PointerEventData eventData)
     {
         CardScript card = eventData.pointerDrag.GetComponent<CardScript>();
         if (card != null && card.isEnemyCard)
         {
             Debug.Log("No se pueden soltar cartas enemigas aquí.");
-            return;  // Impide que las cartas enemigas se suelten en el panel de juego.
+            return;
         }
 
         if (cards.Count >= maxCards)
         {
-            Debug.Log("No se pueden agregar más cartas.");
+            Debug.Log("El panel ya tiene el máximo de cartas permitidas.");
             return;
         }
 
-        // Verificar si el jugador tiene suficiente ambar para pagar el coste de la carta
         GameManagement gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
         if (gameManagement.ambar < card.CardCost)
         {
@@ -33,12 +29,20 @@ public class JuegoPanelScript : MonoBehaviour, IDropHandler //manejo de eventos 
             return;
         }
 
-        RectTransform draggedRectTransform = eventData.pointerDrag.GetComponent<RectTransform>();
-        if (draggedRectTransform != null)
+        // Añadir la carta a la lista del panel
+        if (!cards.Contains(eventData.pointerDrag))
         {
-            draggedRectTransform.SetParent(transform, false);
             cards.Add(eventData.pointerDrag);
             Debug.Log("Carta agregada al panel de juego.");
+        }
+    }
+
+    public void RemoveCard(GameObject card)
+    {
+        if (cards.Contains(card))
+        {
+            cards.Remove(card);
+            Debug.Log("Carta removida del panel de juego.");
         }
     }
 }

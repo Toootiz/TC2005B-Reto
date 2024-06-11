@@ -1,3 +1,8 @@
+/*
+Este código se encarga de manejar la interfaz de usuario para los decks en el juego TCG de dinosaurios.
+Fecha: 09/06/24
+*/
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -6,21 +11,24 @@ using System;
 
 public class DeckUI : MonoBehaviour, IPointerClickHandler
 {
-    public TextMeshProUGUI deckNameText;
-    public TextMeshProUGUI deckDescriptionText;
+    public TextMeshProUGUI deckNameText; // Texto para el nombre del deck
+    public TextMeshProUGUI deckDescriptionText; // Texto para la descripción del deck
     public Transform cardContainer; // Contenedor para las cartas del deck
     public GameObject cardPrefab; // Prefab que representa una carta
     private string deckName;
     private int deckId;
 
-    // Referencia al GameManager o a un script que maneje la lógica del juego
+    // Referencia al DeckSelectionManager que maneja la lógica de selección de decks
     private DeckSelectionManager deckSelectionManager;
 
+    // Esta función se llama al iniciar el script.
+    // Se encarga de obtener la referencia al DeckSelectionManager.
     void Start()
     {
         deckSelectionManager = FindObjectOfType<DeckSelectionManager>();
     }
 
+    // Método para establecer el nombre del deck y su ID.
     public void SetDeckName(string name, int id)
     {
         deckName = name;
@@ -29,11 +37,13 @@ public class DeckUI : MonoBehaviour, IPointerClickHandler
         Debug.Log(deckName + deckId);
     }
 
+    // Método para establecer la descripción del deck.
     public void SetDeckDescription(string description)
     {
         deckDescriptionText.text = description;
     }
 
+    // Método para agregar una carta al contenedor de cartas del deck.
     public void AddCard(DeckLoader.Card card)
     {
         GameObject cardObject = Instantiate(cardPrefab, cardContainer);
@@ -67,6 +77,8 @@ public class DeckUI : MonoBehaviour, IPointerClickHandler
         cardScript3.UpdateCardUI();
     }
 
+    // Esta función se llama cuando se hace clic en el deck.
+    // Se encarga de notificar al DeckSelectionManager sobre la selección del deck.
     public void OnPointerClick(PointerEventData eventData)
     {
         if (deckSelectionManager != null)

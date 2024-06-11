@@ -7,34 +7,33 @@ using UnityEngine.UI;
 
 public class MenuInicial : MonoBehaviour
 {
-
-    
     public AudioMixer audioMixer;
 
+    void Start()
+    {
+        int userId = PlayerPrefs.GetInt("userId", 0);
+        Debug.Log(userId);
+    }
 
     public void Jugar()
     {
         SceneManager.LoadScene("Board");
     }
 
-    public void Salir(){
+    public void Salir()
+    {
         Debug.Log("Salir");
-        SceneManager.LoadScene("Prueba");
+        SceneManager.LoadScene("Login");
         //Application.Quit();
     }
 
     public void Deck()
     {
         SceneManager.LoadScene("Deck");
-
     }
 
-    
-    public void SetVolume (float volume)
+    public void SetVolume(float volume)
     {
         audioMixer.SetFloat("volume", volume);
     }
-
-
-
 }

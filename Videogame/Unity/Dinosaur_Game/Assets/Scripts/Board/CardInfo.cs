@@ -1,35 +1,27 @@
-/*
-Código que guarda la información del api.
-La carga y la manda a GameManagment
-29/05/24
-*/
-
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardInfo : MonoBehaviour
 {
-    public GameObject cardPrefab; // Prefab de la carta que se va a instanciar
-    public Transform cardParent; // Padre que se toma para instanciar las cartas 
-    public string Data; // Texto que contiene los datos JSON recibidos de la API
-    // Clase interna para representar una carta
+    public GameObject cardPrefab;
+    public Transform cardParent;
+    public string Data;
+
     [System.Serializable]
     public class Card
     {
-        // Atributos de la carta
         public int id_carta;
         public string Nombre;
         public int Puntos_de_Vida;
         public int Puntos_de_ataque;
         public int Coste_en_elixir;
-        public int HabilidadDescripcion;
+        public string descripcion;
         public int id_habilidad;
         public int venenodmg;
         public int quemadodmg;
         public int sangradodmg;
-        public int mordidadmg; 
+        public int mordidadmg;
         public int colatazodmg;
         public int boostvida;
         public int boostataquedmg;
@@ -38,38 +30,85 @@ public class CardInfo : MonoBehaviour
         public string imagen;
     }
 
-    // Clase interna para representar una lista de cartas
     [System.Serializable]
-    public class CardList 
+    public class CardList
     {
-        // Lista de objetos de las cartas
         public Card[] cards;
     }
 
-    // Instancia de la lista de cartas
     public CardList listaCartas = new CardList();
 
     void Start()
     {
-        // Nada de momento
     }
 
-    // Método para convertir el JSON recibido en una lista de cartas
     public void MakeList()
     {
-       // Debug.Log("TEST: " + Data); // Imprime el JSON recibido en la consola para verificación
-        listaCartas = JsonUtility.FromJson<CardList>(Data); // Convierte el JSON en una instancia de CardList
+        if (!string.IsNullOrEmpty(Data))
+        {
+            listaCartas = JsonUtility.FromJson<CardList>(Data);
+            Debug.Log("Lista de cartas creada con " + listaCartas.cards.Length + " cartas.");
+        }
+        else
+        {
+            Debug.LogError("Data is null or empty. Cannot create card list.");
+        }
     }
 
-    // Método para instanciar las cartas en el juego
     public void CreateCards()
     {
-        // Recorre cada carta en la lista de cartas
         foreach (var cardData in listaCartas.cards)
         {
-            // Instancia el prefab de la carta como hijo del cardParent
             GameObject newCard = Instantiate(cardPrefab, cardParent);
         }
     }
-}
 
+    public void InstantiateCard(int id, float posX, float posY)
+    {
+        if (id < 0 || id >= listaCartas.cards.Length)
+        {
+            Debug.LogError("ID de carta fuera de rango: " + id);
+            return;
+        }
+
+        GameObject newcard = Instantiate(cardPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+        newcard.transform.SetParent(cardParent.transform, false);
+        newcard.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+
+        TextMeshProUGUI nameText = newcard.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI lifeText = newcard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI attackText = newcard.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI costText = newcard.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI habilidadText = newcard.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+        Image cardImage = newcard.transform.GetChild(5).GetComponent<Image>();
+
+        Card cardData = listaCartas.cards[id];
+
+        // Asignar valores de texto a la UI de la carta
+        nameText.text = cardData.Nombre;
+        lifeText.text = cardData.Puntos_de_Vida.ToString();
+        attackText.text = cardData.Puntos_de_ataque.ToString();
+        costText.text = cardData.Coste_en_elixir.ToString();
+        habilidadText.text = cardData.descripcion;
+
+        CardScript cardScript = newcard.GetComponent<CardScript>();
+
+        // Asignar valores al script de la carta
+        cardScript.CardId = cardData.id_carta;
+        cardScript.CardName = cardData.Nombre;
+        cardScript.CardAttack = cardData.Puntos_de_ataque;
+        cardScript.CardLife = cardData.Puntos_de_Vida;
+        cardScript.CardCost = cardData.Coste_en_elixir;
+        cardScript.descripcion = cardData.descripcion;
+        cardScript.Cardvenenodmg = cardData.venenodmg;
+        cardScript.Cardquemadodmg = cardData.quemadodmg;
+        cardScript.Cardsangradodmg = cardData.sangradodmg;
+        cardScript.Cardmordidadmg = cardData.mordidadmg;
+        cardScript.Cardcolatazodmg = cardData.colatazodmg;
+        cardScript.Cardboostvida = cardData.boostvida;
+        cardScript.Cardboostataquedmg = cardData.boostataquedmg;
+        cardScript.Cardboostcosto = cardData.boostcosto;
+        cardScript.Cardduracion = cardData.duracion;
+        cardScript.CardArt = cardImage;
+    }
+}

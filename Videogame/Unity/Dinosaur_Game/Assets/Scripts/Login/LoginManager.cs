@@ -100,6 +100,7 @@ public class LoginManager : MonoBehaviour
                     // Extract user ID from response
                     string userId = www.downloadHandler.text.Split(':')[1];
                     PlayerPrefs.SetString("userId", userId);
+                    PlayerPrefs.SetString("nombre", nombre);
 
                     Debug.Log("Usuario autenticado");
                     SceneManager.LoadScene("MenuInicial");

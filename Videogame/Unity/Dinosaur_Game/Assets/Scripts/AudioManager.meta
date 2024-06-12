@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Scripts/AudioManager.meta
 guid: 51071a75ff7c74b0688d83dc9ad0ff5c
+========
+guid: 0d160336629dc4af0b3db27019768dc9
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/Audio.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

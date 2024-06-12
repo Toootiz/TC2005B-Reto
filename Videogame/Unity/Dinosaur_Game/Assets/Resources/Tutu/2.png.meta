@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Resources/Tutu/2.png.meta
 guid: 82b735ccedbeade4cb045b0949adf0f8
+========
+guid: 12a43917fec31484f80eac5a3edefc5e
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/Sprites/Elements/hojas_cayendo 4.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

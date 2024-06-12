@@ -1,10 +1,20 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: eaccaa76fa006ed4cb4f517e9e303b0f
 =======
 guid: bdb73128f71f84e3494d190294d36c8a
 >>>>>>> main
 TextScriptImporter:
+=======
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Prefab/Panel.prefab.meta
+guid: bd74e3ce7ce20234b936206c6b734a73
+PrefabImporter:
+========
+guid: bdb73128f71f84e3494d190294d36c8a
+TextScriptImporter:
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Sprites/EmojiOne Attribution 4.txt.meta
+>>>>>>> main
   externalObjects: {}
   userData: 
   assetBundleName: 

@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Resources/Tutu.meta
 guid: bb232323bc39b7e4996060c185cc6cfb
 folderAsset: yes
+========
+guid: 7e9aefe9da933422ab0c77a0a8e18869
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2019.pdf.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

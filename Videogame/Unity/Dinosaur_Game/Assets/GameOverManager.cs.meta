@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/GameOverManager.cs.meta
 guid: 6314ee0067b7350489564ea8832b5897
+========
+guid: cc7a6bc88216e4c6284c2cfc27c10aef
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/Scripts/Board/Enemy/BancaEnemigo 2.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

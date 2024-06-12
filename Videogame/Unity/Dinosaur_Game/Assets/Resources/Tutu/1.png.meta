@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Resources/Tutu/1.png.meta
 guid: 70dbe7bd1cee7774d8621bb3d9300c13
+========
+guid: 54fd5652272fb432ca2e84968ee1a3e1
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/Resources/DinoImages/0 2.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

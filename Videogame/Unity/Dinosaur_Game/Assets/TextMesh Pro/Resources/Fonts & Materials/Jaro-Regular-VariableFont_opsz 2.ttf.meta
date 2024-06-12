@@ -1,8 +1,20 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 66a1e7a924c82ee488b58764136ffb44
 =======
 guid: 54e55687fbd53442898166a26cb988ac
+>>>>>>> main
+=======
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Fonts/Jaro-Regular-VariableFont_opsz 4.ttf.meta
+<<<<<<< HEAD
+guid: b6ecb11d17d8b694891a5269c0741a02
+=======
+guid: a0726d88084e4428fb4e5ad02dda32ee
+>>>>>>> main
+========
+guid: 54e55687fbd53442898166a26cb988ac
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Resources/Fonts & Materials/Jaro-Regular-VariableFont_opsz 2.ttf.meta
 >>>>>>> main
 TrueTypeFontImporter:
   externalObjects: {}

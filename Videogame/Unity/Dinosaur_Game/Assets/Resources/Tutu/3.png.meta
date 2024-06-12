@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Resources/Tutu/3.png.meta
 guid: 5eb056dce678ac1428e5efcb1d9f6973
+========
+guid: c4929a0252e8c493ab041110793b8fdb
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Sprites/EmojiOne 4.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
